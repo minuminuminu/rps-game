@@ -1,6 +1,10 @@
 import styled from "styled-components";
+import { io } from "socket.io-client";
+import { useEffect } from "react";
 import { OpponentChoice } from "./components/OpponentChoice";
 import { OptionCard } from "./components/OptionCard";
+
+const socket = io("http://localhost:3001");
 
 const Body = styled.div`
   width: 100vw;
@@ -21,12 +25,22 @@ const CardContainer = styled.div`
 `;
 
 function App() {
+  useEffect(() => {
+    socket.on("receiveData", (data) => {
+      console.log(data);
+    });
+
+    socket.on("joinMsg", (msg) => {
+      console.log(msg);
+    });
+  }, [socket]);
+
   return (
     <Body>
       <CardContainer>
-        <OptionCard type="stone" />
-        <OptionCard type="paper" />
-        <OptionCard type="scissors" />
+        <OptionCard type="stone" socket={socket} />
+        <OptionCard type="paper" socket={socket} />
+        <OptionCard type="scissors" socket={socket} />
       </CardContainer>
       <CardContainer>
         <OpponentChoice />

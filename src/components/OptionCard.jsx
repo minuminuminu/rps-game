@@ -16,7 +16,7 @@ const CardBody = styled.div`
 
 export const OptionCard = (props) => {
   const submitOption = (name) => {
-    console.log(name);
+    props.socket.emit("choiceData", name);
   };
 
   return (
