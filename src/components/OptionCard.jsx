@@ -16,11 +16,19 @@ const CardBody = styled.div`
 
 export const OptionCard = (props) => {
   const submitOption = (name) => {
-    props.socket.emit("choiceData", name);
+    if (props.lockedIn === true) {
+      return;
+    }
+
+    props.setChoice(name);
   };
 
   return (
-    <CardBody onClick={() => submitOption(props.type)}>
+    <CardBody
+      onClick={() => {
+        submitOption(props.type);
+      }}
+    >
       {
         // {props.type}.png icon in middle
       }
