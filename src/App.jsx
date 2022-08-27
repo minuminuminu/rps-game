@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
 import { OpponentChoice } from "./components/OpponentChoice";
 import { OptionCard } from "./components/OptionCard";
+import { Outlet } from "react-router-dom";
 
 const socket = io("http://localhost:3001");
 
@@ -65,6 +66,7 @@ function App() {
       <CardContainer>
         <OpponentChoice />
       </CardContainer>
+      <Outlet />
     </Body>
   );
 }
