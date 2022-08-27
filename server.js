@@ -45,8 +45,8 @@ let choices = ["", ""];
 
 io.on("connection", (socket) => {
   console.log(`${socket.id} just joined!`);
-  socket.join("test_room");
-  console.log(socket.rooms.size);
+  // socket.join("test_room");
+  // console.log(socket.rooms.size);
 
   socket.on("sendChoice", (data) => {
     console.log(socket.rooms);

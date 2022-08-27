@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useEffect } from "react";
 
 const AdminPanel = styled.div`
   background-color: red;
@@ -6,8 +7,10 @@ const AdminPanel = styled.div`
   height: 250px;
 `;
 
-const Admin = (props) => {
-  return <AdminPanel>Hi</AdminPanel>;
+const Admin = ({ socket }) => {
+  useEffect(() => {}, [socket]);
+
+  return <AdminPanel></AdminPanel>;
 };
 
 export default Admin;

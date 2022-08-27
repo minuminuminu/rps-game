@@ -1,11 +1,9 @@
 import styled from "styled-components";
-import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
 import { OpponentChoice } from "./components/OpponentChoice";
 import { OptionCard } from "./components/OptionCard";
 import { Outlet } from "react-router-dom";
-
-const socket = io("http://localhost:3001");
+import { Link } from "react-router-dom";
 
 const Body = styled.div`
   width: 100vw;
@@ -25,7 +23,16 @@ const CardContainer = styled.div`
   flex-direction: row;
 `;
 
-function App() {
+const HiddenLink = styled(Link)`
+  width: 25px;
+  height: 25px;
+  background-color: red;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;
+
+function App({ socket }) {
   const [lockedIn, setLockedIn] = useState(false);
 
   const setPlayerChoice = (choice) => {
@@ -66,6 +73,7 @@ function App() {
       <CardContainer>
         <OpponentChoice />
       </CardContainer>
+      <HiddenLink to={"admin"} />
       <Outlet />
     </Body>
   );
