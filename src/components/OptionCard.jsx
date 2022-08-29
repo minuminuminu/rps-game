@@ -6,6 +6,9 @@ const CardBody = styled.div`
   background-color: #78a4cf7e;
   border-radius: 5px;
   margin: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: transform 0.1s ease-in-out;
 
   &:hover {
@@ -31,6 +34,7 @@ export const OptionCard = (props) => {
     >
       {
         // {props.type}.png icon in middle
+        props.type
       }
     </CardBody>
   );

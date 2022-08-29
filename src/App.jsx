@@ -36,7 +36,6 @@ function App({ socket }) {
   const [lockedIn, setLockedIn] = useState(false);
 
   const setPlayerChoice = (choice) => {
-    console.log(choice);
     socket.emit("sendChoice", choice);
     setLockedIn(true);
   };
