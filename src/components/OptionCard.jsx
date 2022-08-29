@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FaHandRock, FaHandPaper, FaHandScissors } from "react-icons/fa";
 
 const CardBody = styled.div`
   width: 180px;
@@ -17,6 +18,18 @@ const CardBody = styled.div`
   }
 `;
 
+const Icon1 = styled(FaHandRock)`
+  font-size: 40px;
+`;
+
+const Icon2 = styled(FaHandPaper)`
+  font-size: 40px;
+`;
+
+const Icon3 = styled(FaHandScissors)`
+  font-size: 40px;
+`;
+
 export const OptionCard = (props) => {
   const submitOption = (name) => {
     if (props.lockedIn === true) {
@@ -32,10 +45,9 @@ export const OptionCard = (props) => {
         submitOption(props.type);
       }}
     >
-      {
-        // {props.type}.png icon in middle
-        props.type
-      }
+      {props.type === "rock" ? <Icon1 /> : null}
+      {props.type === "paper" ? <Icon2 /> : null}
+      {props.type === "scissors" ? <Icon3 /> : null}
     </CardBody>
   );
 };

@@ -4,6 +4,8 @@ import { OpponentChoice } from "./components/OpponentChoice";
 import { OptionCard } from "./components/OptionCard";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { WinnerModal } from "./components/WinnerModal";
+import { ScoreDotContainer } from "./components/ScoreDotContainer";
 
 const Body = styled.div`
   width: 100vw;
@@ -11,6 +13,13 @@ const Body = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+`;
+
+const RowContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: row;
 `;
 
@@ -34,6 +43,8 @@ const HiddenLink = styled(Link)`
 
 function App({ socket }) {
   const [lockedIn, setLockedIn] = useState(false);
+  const [winnerModal, setWinnerModal] = useState(false);
+  const [winner, setWinner] = useState("");
 
   const setPlayerChoice = (choice) => {
     socket.emit("sendChoice", choice);
@@ -42,36 +53,48 @@ function App({ socket }) {
 
   useEffect(() => {
     socket.on("result", (msg) => {
-      console.log(msg);
+      setWinnerModal(true);
+      setWinner(msg);
+      setTimeout(() => {
+        setWinner("");
+        setWinnerModal(false);
+      }, 1500);
       setLockedIn(false);
     });
   }, [socket]);
 
   return (
     <Body>
-      <CardContainer>
-        <OptionCard
-          type="rock"
-          socket={socket}
-          lockedIn={lockedIn}
-          setChoice={setPlayerChoice}
-        />
-        <OptionCard
-          type="paper"
-          socket={socket}
-          lockedIn={lockedIn}
-          setChoice={setPlayerChoice}
-        />
-        <OptionCard
-          type="scissors"
-          socket={socket}
-          lockedIn={lockedIn}
-          setChoice={setPlayerChoice}
-        />
-      </CardContainer>
-      <CardContainer>
-        <OpponentChoice />
-      </CardContainer>
+      <RowContainer>
+        <CardContainer>
+          <OptionCard
+            type="rock"
+            socket={socket}
+            lockedIn={lockedIn}
+            setChoice={setPlayerChoice}
+          />
+          <OptionCard
+            type="paper"
+            socket={socket}
+            lockedIn={lockedIn}
+            setChoice={setPlayerChoice}
+          />
+          <OptionCard
+            type="scissors"
+            socket={socket}
+            lockedIn={lockedIn}
+            setChoice={setPlayerChoice}
+          />
+        </CardContainer>
+        <CardContainer>
+          <OpponentChoice />
+        </CardContainer>
+      </RowContainer>
+      <RowContainer>
+        <ScoreDotContainer />
+        <ScoreDotContainer />
+      </RowContainer>
+      <WinnerModal modal={winnerModal} winner={winner} />
       <HiddenLink to={"admin"} />
       <Outlet />
     </Body>
