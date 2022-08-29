@@ -49,8 +49,10 @@ io.on("connection", (socket) => {
   console.log(`${socket.id} just joined!`);
   if (player1.id === "") {
     player1.id = socket.id;
+    socket.emit("playerCheck", "player1");
   } else {
     player2.id = socket.id;
+    socket.emit("playerCheck", "player2");
   }
 
   console.log(`p1: ${player1.id} and p2: ${player2.id}`);
@@ -84,7 +86,7 @@ io.on("connection", (socket) => {
       player2.choice = "";
     }
 
-    io.emit("preview", { p1: player1.choice, p2: player2.choice });
+    io.emit("preview", { p1: player1, p2: player2 });
   });
 
   socket.on("disconnect", () => {
